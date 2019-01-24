@@ -18,7 +18,7 @@ sides = []
 diff_sides = sides.uniq.size
 
 square_sides = sides.sort.map{ |x| x**2 }
-right_triangle = (square_sides[2] == (square_sides[1] + square_sides[0]))
+right_triangle = square_sides[2] == (square_sides[1] + square_sides[0])
 
 if diff_sides == 1
   puts "Треугольник равнобедренный и равносторонний, но не прямоугольный"
