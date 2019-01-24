@@ -7,8 +7,8 @@ puts "Программа расчета идеального веса"
 puts "Ведите ваше имя"
 name = gets.chomp
 puts "Введите ваш рост"
-height = gets.chomp.to_i
-weight = height -110
+height = gets.to_i
+weight = height - 110
 if weight > 0
   puts "#{name}, ваш идеальный вес #{weight}"
 else

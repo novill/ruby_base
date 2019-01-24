@@ -12,8 +12,8 @@
 
 puts "Программа \"Прямоугольный треугольник.\""
 puts "Введите стороны треугольника"
-sides = Array.new()
-3.times { sides << gets.chomp.to_f}
+sides = []
+3.times { sides << gets.to_f}
 
 diff_sides = sides.uniq.size
 
@@ -22,15 +22,11 @@ right_triangle = (square_sides[2] == (square_sides[1] + square_sides[0]))
 
 if diff_sides == 1
   puts "Треугольник равнобедренный и равносторонний, но не прямоугольный"
+elsif right_triangle && diff_sides == 2
+  puts "Треугольник прямоугольный и равнобедренный"
+elsif right_triangle
+  puts "Треугольник прямоугольный"
 else
-  if right_triangle
-    puts "Треугольник прямоугольный #{ " и равнобедренный" if diff_sides == 2}"
-  else
-    puts "Треугольник не прямоугольный"
-  end
+  puts "Треугольник не прямоугольный"
 end
-
-
-
-
 

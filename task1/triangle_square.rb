@@ -4,8 +4,9 @@
 
 puts "Программа расчета площади треугольника"
 puts "Ведите основание треугольника"
-a = gets.chomp.to_i
+base = gets.chomp.to_i
 puts "Введите высоту тругольника"
-h = gets.chomp.to_i
-puts "Площадь треугольника #{0.5*a*h}"
+height = gets.chomp.to_i
+area = 0.5 * base * height
+puts "Площадь треугольника #{area}"
 

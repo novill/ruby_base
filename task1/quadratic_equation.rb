@@ -12,15 +12,19 @@ a = gets.chomp.to_f
 b = gets.chomp.to_f
 c = gets.chomp.to_f
 
-d = ( (b**2) - 4*a*c)
+d = (b**2) - 4 * a * c
 
 puts "Дискриминант: #{d}"
 
 if d < 0 then
   puts "Корней нет"
 elsif d == 0
-  puts "Корень: #{-b / (2*a)}"
+  x = -b / (2.0 * a)
+  puts "Корень: #{x}"
 else
-  puts "Корни: #{(-b - Math.sqrt(d)) / (2*a)} и #{(-b + Math.sqrt(d)) / (2*a)}"
+  sqrt_d = Math.sqrt(d)
+  x1 = (-b - sqrt_d) / (2 * a)
+  x2 = (-b + sqrt_d) / (2 * a)
+  puts "Корни: #{x1} и #{x2}"
 end  
 
