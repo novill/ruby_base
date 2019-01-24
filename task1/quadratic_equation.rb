@@ -8,9 +8,9 @@
 
 puts "Программа \"Квадратное уравнение.\""
 puts "Введите 3 коэффициента a, b и с уравнения"
-a = gets.chomp.to_f
-b = gets.chomp.to_f
-c = gets.chomp.to_f
+a = gets.to_f
+b = gets.to_f
+c = gets.to_f
 
 d = (b**2) - 4 * a * c
 
