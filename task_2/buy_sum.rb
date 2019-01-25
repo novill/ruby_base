@@ -28,5 +28,4 @@ buy.each do |k,v|
   puts "#{k}. Цена: #{v[:price]}. Количество: #{v[:qty]}. Сумма: #{v[:price]*v[:qty]}"
   all_sum += v[:price]*v[:qty]
 end
-
 puts "Итого: #{all_sum}"
