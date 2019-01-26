@@ -8,7 +8,7 @@
 # Вычислить и вывести на экран итоговую сумму всех покупок в "корзине".
 
 puts 'Сумма покупок. Введите список покупок'
-buy = {}
+cart = {}
 
 loop do
   puts 'Наименование товара'
@@ -17,15 +17,15 @@ loop do
   puts 'Цена'
   price = gets.to_f
   puts 'Количество'
-  qty = gets.to_f
-  buy[product] = {price: price, qty: qty}
+  quantity = gets.to_f
+  cart[product] = { price: price, quantity: quantity }
 end
 
-all_sum = 0
+total = 0
 
 puts 'Ваша корзина:'
-buy.each do |k,v|
-  puts "#{k}. Цена: #{v[:price]}. Количество: #{v[:qty]}. Сумма: #{v[:price]*v[:qty]}"
-  all_sum += v[:price]*v[:qty]
+cart.each do |product, buy|
+  puts "#{product}. Цена: #{buy[:price]}. Количество: #{buy[:quantity]}. Сумма: #{buy[:price]*buy[:quantity]}"
+  total += buy[:price]*buy[:quantity]
 end
-puts "Итого: #{all_sum}"
+puts "Итого: #{total}"

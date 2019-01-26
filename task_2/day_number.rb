@@ -15,9 +15,9 @@ day_of_month = gets.to_i
 month_num = gets.to_i
 year = gets.to_i
 
-
-leap_year = (year % 4 == 0) && (!(year % 100 == 0) || (year % 400 == 0))
+leap_year = year % 4 == 0 && year % 100 != 0 || year % 400 == 0
 num_day = day_of_month
+
 m_days.take(month_num - 1).each{ |d| num_day += d} # в руби 2.2 нет sum для Array
 num_day += 1 if leap_year && month_num > 2
 
