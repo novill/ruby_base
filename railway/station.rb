@@ -15,8 +15,8 @@ class Station
     @trains.delete(train)
     puts "Поезд #{train.number} отправлен со станции #{name}"
   end
-  
+
   def trains_by_type(type)
-    @trains.select{ |train| train.type == type }
+    @trains.select { |train| train.type == type }
   end
 end
