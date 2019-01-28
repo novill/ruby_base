@@ -6,7 +6,7 @@
 # Год високосный, если он делится на четыре без остатка, но если он делится на 100 без остатка, это не високосный год.
 # Однако, если он делится без остатка на 400, это високосный год. Таким образом, 2000 г. является особым високосным годом, который бывает лишь раз в 400 лет. 
 
-m_days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+month_days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 puts 'Определение номера дня в году'
 puts 'Введите число, месяц и год'
@@ -16,9 +16,9 @@ month_num = gets.to_i
 year = gets.to_i
 
 leap_year = year % 4 == 0 && year % 100 != 0 || year % 400 == 0
-num_day = day_of_month
+month_days[1] += 1 if leap_year
 
-m_days.take(month_num - 1).each{ |d| num_day += d} # в руби 2.2 нет sum для Array
-num_day += 1 if leap_year && month_num > 2
+num_day = day_of_month
+num_day += month_days.take(month_num - 1).reduce(0, :+)
 
 puts "Номер дня в году: #{num_day}"

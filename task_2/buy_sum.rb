@@ -22,10 +22,13 @@ loop do
 end
 
 total = 0
+cart.each do |product, buy|
+  buy[:sum] = buy[:price] * buy[:quantity]
+  total += buy[:sum]
+end
 
 puts 'Ваша корзина:'
 cart.each do |product, buy|
-  puts "#{product}. Цена: #{buy[:price]}. Количество: #{buy[:quantity]}. Сумма: #{buy[:price]*buy[:quantity]}"
-  total += buy[:price]*buy[:quantity]
+  puts "#{product}. Цена: #{buy[:price]}. Количество: #{buy[:quantity]}. Сумма: #{buy[:sum]}"
 end
 puts "Итого: #{total}"
