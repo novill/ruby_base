@@ -42,7 +42,6 @@ class Train
     @route = route
     route.stations[0].get_train(self)
     @current_station_index = 0
-
   end
 
   def move_forward
@@ -57,7 +56,7 @@ class Train
     return unless previous_station
 
     current_station.send_train(self)
-    next_station.get_train(self)
+    previous_station.get_train(self)
     @current_station_index -= 1
   end
 
