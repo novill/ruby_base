@@ -34,6 +34,10 @@ class Train
     @carriages.size
   end
 
+  def add_carriage(carriage)
+    @carriages << carriage if carriage.instance_of?(allowed_carriage_class)
+  end
+
   def remove_carriage
     @carriages.delete_at(-1) # пусть удаляется последний
   end
