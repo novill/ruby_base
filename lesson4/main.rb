@@ -1,5 +1,4 @@
 require_relative 'railway.rb'
-
 # Создать программу в файле main.rb, которая будет позволять пользователю через текстовый интерфейс делать следующее:
 # - Создавать станции
 # - Создавать поезда
@@ -18,17 +17,7 @@ class Main
   def run
     puts 'Управление железной дорогой'
     loop do
-      puts 'Выберите действие:'
-      puts '1. Создать станции'
-      puts '2. Создать поезда'
-      puts '3. Создать маршруты и управлять станциями в нем (добавить, удалить)'
-      puts '4. Назначить маршрут поезду'
-      puts '5. Добавить вагоны к поезду'
-      puts '6. Отцепить вагоны от поезда'
-      puts '7. Переместить поезд по маршруту вперед или назад'
-      puts '8. Просмотреть список станций или список поездов на станции'
-      puts '0. Закончить программу'
-
+      show_menu(MAIN_MENU)
       case gets.to_i
       when 0 then exit
       when 1 then @railway.create_station
@@ -45,33 +34,73 @@ class Main
 
   private
 
+  INVALID_INDEX_ERROR = 'Неверно выбрана станция'
+
+  MAIN_MENU = [
+      'Закончить программу',
+      'Создать станции',
+      'Создать поезда',
+      'Создать маршруты и управлять станциями в нем (добавить, удалить)',
+      'Назначить маршрут поезду',
+      'Добавить вагоны к поезду',
+      'Отцепить вагоны от поезда',
+      'Переместить поезд по маршруту вперед или назад',
+      'Просмотреть список станций или список поездов на станции'
+  ]
+  ROUTES_MENU = [
+    'Выход',
+    'Создать маршрут',
+    'Добавить станцию к маршруту',
+    'Удалить станцию из маршрута'
+  ]
+  MOVE_TRAIN_MENU = [
+    'Выход',
+    'Переместить по маршруту вперед',
+    'Переместить по маршруту назад'
+  ]
+  PRINT_STATIONS_MENU = [
+    'Выход',
+    'Посмотреть список станций',
+    'Посмотреть список поездов на станции'
+  ]
+
+
+  def show_menu(menu)
+    puts 'Выберите действие:'
+    menu.each_with_index { |item, index| puts "#{index}. #{item}" }
+  end
+
   def select_route_action
     puts 'Введите номер маршрута'
     @railway.print_routes
     @railway.routes[gets.to_i]
   end
 
+  def select_station_action(stations_owner)
+    puts 'Введите номер станции'
+      stations_owner.print_stations
+      stations_owner.stations[gets.to_i]
+  end
+
   def add_route_station_action
     route = select_route_action
-    puts 'Введите номер добавляемой станции'
-    @railway.print_stations
-    route.add_station(@railway.stations[gets.to_i])
+    station = select_station_action(@railway)
+    return puts(INVALID_INDEX_ERROR) unless station
+
+    route.add_station(station)
   end
 
   def remove_route_station_action
     route = select_route_action
-    puts 'Введите номер удаляемой станции'
-    route.print_stations
-    route.remove_station(route.stations[gets.to_i])
+    station = select_station_action(route)
+    return puts(INVALID_INDEX_ERROR) unless station
+
+    route.remove_station(station)
   end
 
   def manage_routes_menu
     loop do
-      puts 'Выберите действие:'
-      puts '1. Создать маршрут'
-      puts '2. Добавить станцию к маршруту'
-      puts '3. Удалить станцию из маршрута'
-      puts '0. Выход'
+      show_menu(ROUTES_MENU)
       case gets.to_i
       when 0 then return
       when 1 then @railway.create_route
@@ -102,10 +131,9 @@ class Main
 
   def move_trains_action
     train = select_train_action
-    puts 'Выберите действие:'
-    puts '1. Переместить по маршруту вперед'
-    puts '2. Переместить по маршруту назад'
+    show_menu(MOVE_TRAIN_MENU)
     case gets.to_i
+    when 0 then return
     when 1 then train.move_forward
     when 2 then train.move_backward
     end
@@ -118,10 +146,9 @@ class Main
   end
 
   def print_stations_action
-    puts 'Выберите действие:'
-    puts '1. Посмотреть список станций'
-    puts '2. Посмотреть список поездов на станции'
+    show_menu(PRINT_STATIONS_MENU)
     case gets.to_i
+    when 0 then return
     when 1 then @railway.print_stations
     when 2 then print_trains_on_station
     end
@@ -129,3 +156,4 @@ class Main
 end
 
 Main.new.run
+

@@ -27,4 +27,8 @@ class Route
   def print_stations
     stations.each_with_index { |station, index| puts "#{index}. #{station}" }
   end
+
+  def to_s
+    "#{stations[0]} - #{stations[1]}"
+  end
 end

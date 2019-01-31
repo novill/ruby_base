@@ -22,8 +22,8 @@ class Railway
 
   # - Создавать поезда
   def create_train
-    puts 'Введите тип нового поезда: 0 - пассажирский, 1 - грузовой'
-    train_type = TRAIN_TYPES[gets.to_i]
+    puts 'Введите тип нового поезда: 1 - пассажирский, 2 - грузовой'
+    train_type = TRAIN_TYPES[gets.to_i - 1]
     return unless train_type
 
     puts 'Введите номер нового поезда'
@@ -43,19 +43,22 @@ class Railway
   # - Просматривать список станций
   def print_stations
     puts 'Список станций:'
-    stations.each_with_index { |station, index| puts "#{index}. #{station}" }
+    print_array(stations)
   end
 
   def print_trains
     puts 'Список поездов:'
-    trains.each_with_index { |train, index| puts "#{index}. #{train}" }
+    print_array(trains)
   end
 
   def print_routes
     puts 'Список маршрутов:'
-    routes.each_with_index do |route, index|
-      puts index
-      route.print_stations
-    end
+    print_array(routes)
+  end
+
+  private
+
+  def  print_array(array)
+    array.each_with_index { |object, index| puts "#{index}. #{object}" }
   end
 end
