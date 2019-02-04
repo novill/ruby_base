@@ -20,11 +20,10 @@ class Train
   include Maker
   include InstanceCounter
 
-  @@all_trains = []
+  @@all_trains = {}
 
   def self.find(number)
-    selected_trains = @@all_trains.select { |train| train.number == number }
-    selected_trains[0] if selected_trains
+    @@all_trains[number]
   end
 
   attr_reader :number, :speed
@@ -34,7 +33,7 @@ class Train
     @carriages = []
     @speed = 0
     @current_station_index = nil
-    @@all_trains << self
+    @@all_trains[number] = self
     register_instance
   end
 

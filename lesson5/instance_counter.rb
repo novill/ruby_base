@@ -15,13 +15,12 @@ module InstanceCounter
     base.send(:include, InstanceMethods)
   end
 
-  module ClassMethods
-    def instances
-      @instance_count ||= 0
-    end
 
-    def instances=(counter)
-      @instance_count = counter
+  module ClassMethods
+    attr_writer :instances
+
+    def instances
+      @instances ||= 0
     end
   end
 
