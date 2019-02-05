@@ -19,6 +19,12 @@ class Route
     register_instance
   end
 
+  def valid?
+    validate!
+  rescue StandardError
+    false
+  end
+
   def add_station(station)
     @stations.insert(-2, station)
   end
@@ -39,6 +45,6 @@ class Route
   INVALID_STATIONS_MESSAGE = 'Недопустимые станции в маршруте'
 
   def validate!
-    raise INVALID_STATIONS_MESSAGE unless stations.reject { |station| station.instance_of?(Station) }.blank?
+    raise INVALID_STATIONS_MESSAGE unless stations.all? { |station| station.is_a?(Station) }
   end
 end

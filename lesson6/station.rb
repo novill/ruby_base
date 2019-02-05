@@ -54,7 +54,5 @@ class Station
 
   def validate!
     raise INVALID_STATION_NAME_MESSAGE if name.length < 2
-
-    true
   end
 end

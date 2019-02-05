@@ -3,7 +3,7 @@ require_relative 'cargo_train.rb'
 require_relative 'route.rb'
 require_relative 'station.rb'
 class Railway
-  TRAIN_TYPES = [PassengerTrain, CargoTrain]
+  TRAIN_TYPES = [PassengerTrain, CargoTrain].freeze
 
   attr_reader :stations, :trains, :routes
 
@@ -58,7 +58,7 @@ class Railway
 
   private
 
-  def  print_array(array)
+  def print_array(array)
     array.each_with_index { |object, index| puts "#{index}. #{object}" }
   end
 end
