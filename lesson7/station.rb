@@ -34,7 +34,7 @@ class Station
   end
 
   # У класса Station: написать метод, который принимает блок и проходит по всем поездам на станции, передавая каждый поезд в блок.
-  def do_trains
+  def each_train
     @trains.each { |train| yield(train) } if block_given?
   end
 

@@ -219,10 +219,10 @@ class Main
     return 'Не выбран вагон' unless carriage
 
     if carriage.instance_of?(PassengerCarriage)
-      carriage.occupy_one_place
+      carriage.occupy_space
     elsif carriage.instance_of?(CargoCarriage)
-      volume = @interface.cargo_volume_occupy_dialog
-      carriage.occupy_volume(volume)
+      space = @interface.space_occupy_dialog
+      carriage.occupy_space(space)
     end
     carriage
   end

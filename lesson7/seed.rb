@@ -41,15 +41,15 @@ class Main
     train = @railway.trains[0]
     rand(1..5).times { train.add_carriage(train.allowed_carriage_class.new(50)) }
 
-    train.do_carriages do |passenger_carriage|
-      rand(passenger_carriage.free_places).times { passenger_carriage.occupy_one_place }
+    train.each_carriage do |passenger_carriage|
+      rand(passenger_carriage.free_space).times { passenger_carriage.occupy_space }
     end # в одну строчку нечитабельно
 
     train = @railway.trains[1]
     rand(1..5).times { train.add_carriage(train.allowed_carriage_class.new(1000)) }
 
-    train.do_carriages do |cargo_carriage|
-      cargo_carriage.occupy_volume(rand(cargo_carriage.free_volume))
+    train.each_carriage do |cargo_carriage|
+      cargo_carriage.occupy_space(rand(cargo_carriage.free_space))
     end
 
     @interface.print_all_station_trains(@railway.stations)

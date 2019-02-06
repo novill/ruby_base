@@ -10,29 +10,17 @@
 require_relative 'carriage.rb'
 
 class PassengerCarriage < Carriage
-  attr_reader :free_places
-
-  def initialize(all_places)
-    @all_places = all_places
-    @free_places = @all_places
-    validate!
-  end
-
-  def occupy_one_place
-    @free_places -= 1 if free_places.positive?
-  end
-
-  def occupied_places
-    @all_places - free_places
-  end
-
   def to_s
-    "Пассажирский. Занято мест: #{occupied_places}. Свободно: #{free_places}"
+    "Пассажирский. Занято мест: #{occupied_space}. Свободно: #{free_space}"
   end
 
   private
 
+  def valid_load?(load_space)
+    load_space == 1 && free_space.positive?
+  end
+
   def validate!
-    raise 'Число мест должно быть больше 0' unless @all_places.positive?
+    raise 'Число мест должно быть целым и больше 0' unless @full_space.positive? && @full_space.instance_of?(Integer)
   end
 end

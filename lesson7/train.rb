@@ -47,7 +47,7 @@ class Train
   end
 
   # У класса Train:  написать метод, который принимает блок и проходит по всем вагонам поезда (вагоны должны быть во внутреннем массиве), передавая каждый объект вагона в блок.
-  def do_carriages
+  def each_carriage
     @carriages.each { |carriage| yield(carriage) } if block_given?
   end
 

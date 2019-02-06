@@ -23,7 +23,7 @@ class Interface
     gets.to_i
   end
 
-  def cargo_volume_occupy_dialog
+  def space_occupy_dialog
     puts 'Введите объем, который хотите занять в вагоне:'
     gets.to_f
   end
@@ -74,7 +74,7 @@ class Interface
 
   def print_train_carriages(train)
     carriage_count = 1
-    train.do_carriages do |carriage|
+    train.each_carriage do |carriage|
       puts "#{carriage_count}. #{carriage}"
       carriage_count += 1
     end
@@ -83,7 +83,7 @@ class Interface
 
   def print_station_trains(station)
     puts "Список поездов на станции #{station}:"
-    station.do_trains do |train|
+    station.each_train do |train|
       puts "#{train} Вагонов: #{train.carriages_quantity}"
       print_train_carriages(train)
     end

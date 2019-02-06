@@ -10,29 +10,17 @@
 require_relative 'carriage.rb'
 
 class CargoCarriage < Carriage
-  attr_reader :free_volume
-
-  def initialize(volume)
-    @full_volume = volume
-    @free_volume = @full_volume
-    validate!
-  end
-
-  def occupy_volume(volume)
-    @free_volume -= volume unless (free_volume - volume).negative? || volume.negative?
-  end
-
-  def occupied_volume
-    @full_volume - free_volume
-  end
-
   def to_s
-    "Грузовой. Занято объема: #{occupied_volume}. Свободно: #{free_volume}"
+    "Грузовой. Занято объема: #{occupied_space}. Свободно: #{free_space}"
   end
 
   private
 
+  def valid_load?(load_space)
+    load_space.positive? && (free_space - load_space).positive?
+  end
+
   def validate!
-    raise 'Объем должен быть больше 0' unless @full_volume.positive?
+    raise 'Объем должен быть больше 0' unless @full_space.positive?
   end
 end
