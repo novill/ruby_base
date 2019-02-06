@@ -104,7 +104,7 @@ class Train
 
   protected
 
-  NUMBER_FORMAT = /^[a-zа-яё\d]{3}-?[a-zа-я\d]{2}$/i
+  NUMBER_FORMAT = /^[a-zа-яё\d]{3}-?[a-zа-я\d]{2}$/i.freeze
   INVALID_TRAIN_NUMBER_MESSAGE = 'Неверный номер поезда. Формат номера ХХХ-ХХ, где Х - буква или цифра, дефис необязателен'
 
   def validate!

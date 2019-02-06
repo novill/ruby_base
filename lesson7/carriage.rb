@@ -21,4 +21,11 @@ class Carriage
   def occupied_space
     @full_space - free_space
   end
+
+  private
+
+  def valid_load?(load_space)
+    load_space.positive? && (free_space - load_space).positive?
+  end
+
 end

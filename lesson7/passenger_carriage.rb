@@ -14,11 +14,11 @@ class PassengerCarriage < Carriage
     "Пассажирский. Занято мест: #{occupied_space}. Свободно: #{free_space}"
   end
 
-  private
-
-  def valid_load?(load_space)
-    load_space == 1 && free_space.positive?
+  def occupy_space(_load_space)
+    super(1)
   end
+
+  private
 
   def validate!
     raise 'Число мест должно быть целым и больше 0' unless @full_space.positive? && @full_space.instance_of?(Integer)

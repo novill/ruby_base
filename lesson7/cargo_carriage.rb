@@ -16,10 +16,6 @@ class CargoCarriage < Carriage
 
   private
 
-  def valid_load?(load_space)
-    load_space.positive? && (free_space - load_space).positive?
-  end
-
   def validate!
     raise 'Объем должен быть больше 0' unless @full_space.positive?
   end
