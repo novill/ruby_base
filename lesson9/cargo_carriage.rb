@@ -14,9 +14,4 @@ class CargoCarriage < Carriage
     "Грузовой. Занято объема: #{occupied_space}. Свободно: #{free_space}"
   end
 
-  private
-
-  def validate!
-    raise 'Объем должен быть больше 0' unless @full_space.positive?
-  end
 end

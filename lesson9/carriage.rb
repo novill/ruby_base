@@ -28,4 +28,8 @@ class Carriage
     load_space.positive? && (free_space - load_space).positive?
   end
 
+  def _validate_full_space_positive
+    raise 'Вместимость должна быть больше 0' unless @full_space.positive?
+  end
+
 end

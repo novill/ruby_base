@@ -10,11 +10,11 @@
 require_relative 'passenger_train.rb'
 require_relative 'cargo_train.rb'
 require_relative 'instance_counter.rb'
-require_relative 'valid.rb'
+require_relative 'validation.rb'
 
 class Station
   include InstanceCounter
-  include Valid
+  include Validation
 
   def self.all
     @@all
@@ -23,6 +23,8 @@ class Station
   @@all = []
 
   attr_reader :name, :trains
+
+  validate :name, :format, /\w{2,}/
 
   def initialize(name)
     @name = name
@@ -56,7 +58,7 @@ class Station
 
   INVALID_STATION_NAME_MESSAGE = 'Неверное название станции. Название должно быть длиной не менее 2 символов'
 
-  def validate!
-    raise INVALID_STATION_NAME_MESSAGE if name.length < 2
-  end
+  # def validate!
+  #   raise INVALID_STATION_NAME_MESSAGE if name.length < 2
+  # end
 end

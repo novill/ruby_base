@@ -15,12 +15,12 @@
 # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута
 require_relative 'maker.rb'
 require_relative 'instance_counter.rb'
-require_relative 'valid.rb'
+require_relative 'validation.rb'
 
 class Train
   include Maker
   include InstanceCounter
-  include Valid
+  include Validation
 
   # Допустимый формат: три буквы или цифры в любом порядке, необязательный дефис (может быть, а может нет) и еще 2 буквы или цифры после дефиса.
   NUMBER_FORMAT = /^[a-zа-яё\d]{3}-?[a-zа-я\d]{2}$/i.freeze
@@ -33,6 +33,9 @@ class Train
   end
 
   attr_reader :number, :speed, :carriages
+
+  validate :number, :presence
+  validate :number, :format, NUMBER_FORMAT
 
   def initialize(number, options = {})
     @number = number
@@ -109,7 +112,7 @@ class Train
 
   protected
 
-  def validate!
-    raise INVALID_TRAIN_NUMBER_MESSAGE if number !~ NUMBER_FORMAT
-  end
+  # def validate!
+  #   raise INVALID_TRAIN_NUMBER_MESSAGE if number !~ NUMBER_FORMAT
+  # end
 end
