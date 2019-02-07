@@ -20,7 +20,11 @@ class PassengerCarriage < Carriage
 
   private
 
+  def not_enough_space_error
+    "Число мест должно быть целым и больше 0. #{@full_space} #{@full_space.class}"
+  end
+
   def validate!
-    raise "Число мест должно быть целым и больше 0. #{@full_space} #{@full_space.class.to_s}"  unless @full_space.positive? && @full_space.instance_of?(Fixnum)
+    raise not_enough_space_error  unless @full_space.positive? && @full_space.instance_of?(Fixnum)
   end
 end
