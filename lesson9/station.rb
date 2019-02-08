@@ -24,7 +24,7 @@ class Station
 
   attr_reader :name, :trains
 
-  validate :name, :format, /\w{2,}/
+  validate :name, :format, /[а-яА-ЯёЁa-zA-z\d]{2,}/
 
   def initialize(name)
     @name = name

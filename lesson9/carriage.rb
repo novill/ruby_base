@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
 require_relative 'maker.rb'
-require_relative 'valid.rb'
+require_relative 'validation.rb'
 class Carriage
   include Maker
-  include Valid
+  include Validation
 
   attr_reader :free_space
 
   def initialize(full_space)
     @full_space = full_space
     @free_space = @full_space
+    # puts __method__, @full_space, @full_space.class
     validate!
   end
 
@@ -31,5 +32,4 @@ class Carriage
   def _validate_full_space_positive
     raise 'Вместимость должна быть больше 0' unless @full_space.positive?
   end
-
 end

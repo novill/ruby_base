@@ -14,7 +14,7 @@ class PassengerCarriage < Carriage
     "Пассажирский. Занято мест: #{occupied_space}. Свободно: #{free_space}"
   end
 
-  validate :full_space, :type, Integer
+  validate :full_space, :type, Fixnum # вообще должен быть Integer но почему-то переменная получает Fixnum
 
   def occupy_space
     super(1)

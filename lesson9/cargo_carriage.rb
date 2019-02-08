@@ -13,5 +13,4 @@ class CargoCarriage < Carriage
   def to_s
     "Грузовой. Занято объема: #{occupied_space}. Свободно: #{free_space}"
   end
-
 end

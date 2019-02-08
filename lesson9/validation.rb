@@ -16,15 +16,22 @@ module Validation
 
       case args[0]
       when :presence then
-        define_method("_validate_presence_of_#{name}") { raise ArgumentError, "Аттрибут #{name} не может быть пуст" if ['', nil].include?(instance_variable_get(var_name)) }
+        define_method("_validate_presence_of_#{name}") {
+          raise ArgumentError, "Аттрибут #{name} не может быть пуст" if ['', nil].include?(instance_variable_get(var_name))
+        }
       when :format then
         raise ArgumentError, "Не задан формат" if args[1].nil?
         raise ArgumentError, "Неверно задан формат" unless args[1].instance_of?(Regexp)
-        define_method("_validate_format_of_#{name}") { raise ArgumentError, "Аттрибут #{name} неверного формата" if instance_variable_get(var_name) !~ args[1] }
+        define_method("_validate_format_of_#{name}") {
+          raise ArgumentError, "Аттрибут #{name} неверного формата" if instance_variable_get(var_name) !~ args[1]
+        }
       when :type then
         raise ArgumentError, "Не задан тип" if args[1].nil?
         raise ArgumentError, "Неверно задан тип" unless args[1].class == Class
-        define_method("_validate_type_of_#{name}") { raise ArgumentError, "Аттрибут #{name} неверного типа" unless instance_variable_get(var_name).instance_of?(args[1]) }
+        define_method("_validate_type_of_#{name}") {
+          #не знаю как сократить такую строчку
+          raise ArgumentError, "Аттрибут #{name} неверного типа #{instance_variable_get(var_name).class}. Ожидается #{args[1]}" unless instance_variable_get(var_name).instance_of?(args[1])
+        }
       else raise ArgumentError, "Неверный тип валидации"
       end
     end

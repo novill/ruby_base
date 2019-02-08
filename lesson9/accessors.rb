@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Написать модуль Acсessors, содержащий следующие методы, которые можно вызывать на уровне класса:
 
 module Acсessors
@@ -33,11 +35,11 @@ module Acсessors
             []
           end
         history_var_value += [value]
-        self.class.class_variable_set( history_var_name, history_var_value )
+        self.class.class_variable_set(history_var_name, history_var_value)
       end
 
-      #Классовый геттер истории
-      self.class.define_method("#{name}_history") { class_variable_get("@@#{name}_history".to_sym)}
+      # Классовый геттер истории
+      self.class.define_method("#{name}_history") { class_variable_get("@@#{name}_history".to_sym) }
     end
   end
 
@@ -53,7 +55,7 @@ module Acсessors
   def strong_attr_accessor(attr_name, attr_class)
     var_name = "@#{attr_name}".to_sym
 
-    #В переменной класса запишу ожидаемый класс
+    # В переменной класса запишу ожидаемый класс
     var_class_name = "@@#{attr_name}_class".to_sym
     class_variable_set(var_class_name, attr_class)
 
@@ -63,7 +65,7 @@ module Acсessors
     # сеттер
     define_method("#{attr_name}=".to_sym) do |value|
       required_class = self.class.class_variable_get(var_class_name)
-      raise ArgumentError, "Разрешены только #{required_class.to_s} значения" unless value.instance_of?(required_class)
+      raise ArgumentError, "Разрешены только #{required_class} значения" unless value.instance_of?(required_class)
 
       instance_variable_set(var_name, value)
     end
