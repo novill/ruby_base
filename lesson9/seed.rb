@@ -39,7 +39,9 @@ class Main
     # Добавить и нагрузить вагонов
 
     train = @railway.trains[0]
-    rand(1..5).times { train.add_carriage(train.allowed_carriage_class.new(50)) }
+    rand(1..5).times do
+      train.add_carriage(train.allowed_carriage_class.new(50))
+    end
 
     train.each_carriage do |passenger_carriage|
       rand(passenger_carriage.free_space).times { passenger_carriage.occupy_space }

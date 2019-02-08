@@ -7,51 +7,51 @@ module Validation
   end
 
   module ClassMethods
+    attr_reader :validates
 
-  # Содержит метод класса validate. Этот метод принимает в качестве параметров имя проверяемого атрибута, а также тип валидации и при необходимости дополнительные параметры.Возможные типы валидаций:
-    def validate(name, *args)
-      raise ArgumentError, "Не задан тип валидации" if args.empty?
-
-      var_name = "@#{name}".to_sym
-
-      case args[0]
-      when :presence then
-        define_method("_validate_presence_of_#{name}") {
-          raise ArgumentError, "Аттрибут #{name} не может быть пуст" if ['', nil].include?(instance_variable_get(var_name))
-        }
-      when :format then
-        raise ArgumentError, "Не задан формат" if args[1].nil?
-        raise ArgumentError, "Неверно задан формат" unless args[1].instance_of?(Regexp)
-        define_method("_validate_format_of_#{name}") {
-          raise ArgumentError, "Аттрибут #{name} неверного формата" if instance_variable_get(var_name) !~ args[1]
-        }
-      when :type then
-        raise ArgumentError, "Не задан тип" if args[1].nil?
-        raise ArgumentError, "Неверно задан тип" unless args[1].class == Class
-        define_method("_validate_type_of_#{name}") {
-          #не знаю как сократить такую строчку
-          raise ArgumentError, "Аттрибут #{name} неверного типа #{instance_variable_get(var_name).class}. Ожидается #{args[1]}" unless instance_variable_get(var_name).instance_of?(args[1])
-        }
-      else raise ArgumentError, "Неверный тип валидации"
-      end
+    def validate(name, type, params = nil)
+      @validates ||= []
+      @validates << { name: name, type: type, params: params }
     end
   end
 
   module InstanceMethods
+    PRESENCE_ERROR = 'Значение не может быть пусто'
+    FORMAT_ERROR = 'Значение неверного формата'
+    TYPE_ERROR = 'Значение неверного типа'
+
+    #Методы проверки
+    def validate_presence(value)
+      raise PRESENCE_ERROR if ['', nil].include?(value)
+    end
+
+    def validate_format(value, format)
+      raise FORMAT_ERROR if value !~ format
+    end
+
+    def validate_type(value, type)
+      raise TYPE_ERROR if value.instance_of?(type)
+    end
 
     #Содержит инстанс-метод valid? который возвращает true, если все проверки валидации прошли успешно и false, если есть ошибки валидации.
     def valid?
       validate!
       true
-    rescue ArgumentError
+    rescue StandardError
       false
     end
 
     # Содержит инстанс-метод validate!, который запускает все проверки (валидации), указанные в классе через метод класса validate.
     # В случае ошибки валидации выбрасывает исключение с сообщением о том, какая именно валидация не прошла
     def validate!
-      public_methods.select { |method_sym| method_sym.to_s['_validate_'] }.each do |method_sym|
-        send(method_sym)
+      return unless self.class.validates
+      self.class.validates.each do |validation|
+        value = instance_variable_get("@#{validation[:name]}".to_sym)
+        case validation[:type]
+        when :presence then validate_presence(value)
+        when :format then validate_format(value, validation[:params])
+        when :type then validate_type(value, validation[:params])
+        end
       end
       nil
     end

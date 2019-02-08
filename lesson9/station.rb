@@ -56,7 +56,7 @@ class Station
 
   protected
 
-  INVALID_STATION_NAME_MESSAGE = 'Неверное название станции. Название должно быть длиной не менее 2 символов'
+  # INVALID_STATION_NAME_MESSAGE = 'Неверное название станции. Название должно быть длиной не менее 2 символов'
 
   # def validate!
   #   raise INVALID_STATION_NAME_MESSAGE if name.length < 2

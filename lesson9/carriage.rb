@@ -11,7 +11,6 @@ class Carriage
   def initialize(full_space)
     @full_space = full_space
     @free_space = @full_space
-    # puts __method__, @full_space, @full_space.class
     validate!
   end
 
@@ -29,7 +28,4 @@ class Carriage
     load_space.positive? && (free_space - load_space).positive?
   end
 
-  def _validate_full_space_positive
-    raise 'Вместимость должна быть больше 0' unless @full_space.positive?
-  end
 end
