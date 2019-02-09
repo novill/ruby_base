@@ -25,9 +25,13 @@ module Acсessors
       define_method("#{name}=".to_sym) do |value|
         history_var_name = "@#{name}_history".to_sym
 
-        history_var_value = (instance_variable_get (history_var_name) || []) << instance_variable_get(var_name)
-        instance_variable_set(history_var_name, history_var_value)
-
+        history_var_value = instance_variable_get(history_var_name)
+        if history_var_value.nil?
+          instance_variable_set(history_var_name, [])
+        else
+          old_value = instance_variable_get(var_name)
+          history_var_value << old_value
+        end
         instance_variable_set(var_name, value)
       end
 

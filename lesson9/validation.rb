@@ -21,7 +21,7 @@ module Validation
     TYPE_ERROR = 'Значение неверного типа'
 
     #Методы проверки
-    def validate_presence(value)
+    def validate_presence(value, _params)
       raise PRESENCE_ERROR if ['', nil].include?(value)
     end
 
@@ -47,11 +47,8 @@ module Validation
       return unless self.class.validates
       self.class.validates.each do |validation|
         value = instance_variable_get("@#{validation[:name]}".to_sym)
-        case validation[:type]
-        when :presence then validate_presence(value)
-        when :format then validate_format(value, validation[:params])
-        when :type then validate_type(value, validation[:params])
-        end
+        method_name = "validate_#{validation[:type]}".to_sym
+        send(method_name, value, validation[:params])
       end
       nil
     end
