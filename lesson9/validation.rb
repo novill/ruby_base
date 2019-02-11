@@ -26,7 +26,7 @@ module Validation
     end
 
     def validate_format(value, format)
-      raise FORMAT_ERROR if value !~ format
+      raise FORMAT_ERROR unless value =~ format
     end
 
     def validate_type(value, type)
